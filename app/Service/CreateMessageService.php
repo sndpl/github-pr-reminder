@@ -85,7 +85,7 @@ class CreateMessageService
 
     protected function convertReviewsToIcons(array $reviews, int $comments): string
     {
-        if (count($reviews) === 0) {
+        if (count($reviews) === 0 && $comments === 0) {
             return '';
         }
 
@@ -107,6 +107,7 @@ class CreateMessageService
                     break;
             }
         }
+
         $icons .= $this->reviewIcon($commented, ':speech_balloon:');
         $icons .= $this->reviewIcon($approved, ':white_check_mark:');
         $icons .= $this->reviewIcon($changesRequested, ':x:');
