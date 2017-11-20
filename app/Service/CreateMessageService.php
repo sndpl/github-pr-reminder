@@ -72,7 +72,7 @@ class CreateMessageService
             case 'Java':
                 return ':android:';
         }
-        return '(' . $lang . ')';
+        return $lang;
     }
 
     protected function convertCommentCountToIcon(int $comments): string
