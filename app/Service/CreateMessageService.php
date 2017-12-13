@@ -48,7 +48,7 @@ class CreateMessageService
             $pr->organization,
             $pr->repository,
             $pr->url,
-            $pr->title,
+            str_replace(['&', '<', '>'], ['&amp;', '&lt;', '&gt;'], $pr->title),
             $pr->author,
             $daysAgo,
             $reviews,
