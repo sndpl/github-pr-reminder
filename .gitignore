@@ -1,0 +1,6 @@
+# app
+/vendor/
+
+# Mac
+.DS_Store
+.idea

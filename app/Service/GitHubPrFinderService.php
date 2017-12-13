@@ -40,11 +40,7 @@ class GitHubPrFinderService
                     if ($this->skipPr($pr['title'], $excludeLabels)) {
                         continue;
                     }
-                    if ($pr['review_comments'] > 0) {
-                        $reviews = $this->gitHubClient->api('pull_request')->reviews()->all($organization['name'], $repository['name'], $pr['number']);
-                    } else {
-                        $reviews = [];
-                    }
+                    $reviews = $this->gitHubClient->api('pull_request')->reviews()->all($organization['name'], $repository['name'], $pr['number']);
                 } catch (\Exception $e) {
                     $reviews = [];
                 }
