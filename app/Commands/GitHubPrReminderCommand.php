@@ -7,6 +7,7 @@ use App\Service\SlackService;
 use Illuminate\Console\Scheduling\Schedule;
 use LaravelZero\Framework\Commands\Command;
 use App\Service\CreateMessageService;
+use App\Service\CreatePersonalMessageService;
 
 class GitHubPrReminderCommand extends Command
 {
@@ -67,6 +68,19 @@ class GitHubPrReminderCommand extends Command
             $this->line($message);
         } else {
             $this->slackService->postMessage($message, config('slack.channel'));
+        }
+
+        // Create personal messages for pull request reviews
+        $personalMessageCreator = new CreatePersonalMessageService(config('git-hub.user-lookup'));
+        $messages = $personalMessageCreator->create($pullRequests);
+
+        foreach ($messages as $channel => $message) {
+            if($this->option('dry-run')) {
+                $this->info('Personal Slack message for user ' . $channel . ':');
+                $this->line($message);
+            } else {
+                $this->slackService->postMessage($message, $channel);
+            }
         }
     }
 

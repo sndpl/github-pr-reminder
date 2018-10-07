@@ -41,10 +41,11 @@ class GitHubPrFinderService
                         continue;
                     }
                     $reviews = $this->gitHubClient->api('pull_request')->reviews()->all($organization['name'], $repository['name'], $pr['number']);
+                    $reviewRequests = $this->gitHubClient->api('pull_request')->reviewRequests()->all($organization['name'], $repository['name'], $pr['number']);
                 } catch (\Exception $e) {
                     $reviews = [];
                 }
-                $pullRequest = $pullRequestMapper->map($repository, $pr, $reviews);
+                $pullRequest = $pullRequestMapper->map($repository, $pr, $reviews, $reviewRequests);
                 $openPullRequests[] = $pullRequest;
             }
         }

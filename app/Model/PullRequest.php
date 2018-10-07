@@ -17,4 +17,7 @@ class PullRequest
      * @var \App\Model\Review[]
      */
     public $reviews = [];
+
+    /** @var \App\Model\ReviewRequest[] */
+    public $reviewRequests = [];
 }
